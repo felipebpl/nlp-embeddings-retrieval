@@ -2,6 +2,9 @@
 
 This project implements a vector-based search system using BERT embeddings and an autoencoder to improve semantic relevance in document search. The goal is to create embeddings for each document and query, then use cosine similarity to retrieve the most relevant documents. This project was developed in multiple steps, as detailed below.
 
+The official submission document with detailed discussions, analyses, and results as per the APS 2 assignment requirements is available as **APS2.pdf**.
+
+
 ---
 
 ## Table of Contents
@@ -113,8 +116,44 @@ To run this project, you need the following libraries:
 - `scikit-learn`
 - `matplotlib`
 
+You can install them with:
+```bash
+pip install torch transformers sentence-transformers scikit-learn matplotlib
+```
+
 ### Running the Code
 
-1. **Generate Embeddings**:
-   ```bash
-   python train_embeddings.py
+1. **Clone the repository**:
+```bash
+git clone <repository-url>
+cd <repository-folder>
+```
+
+2. **Check for Document Files**:
+   Ensure that the `essays/` directory contains the required `.txt` documents. If missing, run:
+```bash
+python pg.py
+```
+   This script will download and save the necessary documents in the `essays/` directory.
+
+3. **Generate Embeddings**:
+   Train the embeddings with a pre-trained BERT model and Autoencoder:
+```bash
+python train_embeddings.py
+```
+
+4. **Visualize Embeddings**:
+   Use t-SNE to visualize the pre-trained and adjusted embeddings:
+```bash
+python visualize_embeddings.py
+```
+   This will generate and save the visualizations in the `step2_output/` directory.
+
+5. **Run Search Tests**:
+   Test the query search system and view results for predefined queries:
+```bash
+python main.py
+```
+   This will run three search tests with queries (`users`, `love`, `writing`) and display the top 10 results for each.
+
+
