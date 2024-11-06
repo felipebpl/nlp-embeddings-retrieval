@@ -24,36 +24,36 @@ The official submission document with detailed discussions, analyses, and result
 The project is inspired by the method presented in:
 > Venkatesh Sharma, K., Ayiluri, P.R., Betala, R. et al. *Enhancing query relevance: leveraging SBERT and cosine similarity for optimal information retrieval*. Int J Speech Technol 27, 753–763 (2024).
 
-The main goal of this project is to represent both documents and queries in an embedding space using BERT, fine-tuned via an autoencoder, to allow for more semantically relevant search results. 
+The main goal of this project is to improve the semantic relevance of search results by representing both documents and queries in an embedding space using BERT. The embeddings are further refined through an autoencoder, enabling enhanced contextual accuracy in information retrieval.
 
 ---
 
 ## Project Overview
 
 In this system:
-1. **BERT** is used to create embeddings for each document in the dataset.
-2. **Autoencoder** is applied to further adjust the embeddings, compressing them into a lower-dimensional space to capture the dataset’s specific semantics.
-3. **Cosine Similarity** is used to calculate the similarity between the query and document embeddings, retrieving the most relevant documents.
+1. **BERT** is used to generate initial embeddings for each document, providing a rich semantic foundation.
+2. **Semantic Autoencoder** is applied to adjust these embeddings, compressing them into a lower-dimensional space (128 dimensions) while preserving essential contextual features specific to the dataset.
+3. **Cosine Similarity** is used to calculate the relevance between the query embedding and document embeddings, efficiently retrieving the most contextually appropriate documents.
 
 ---
 
 ## Steps
 
-### Step 1: Find Embeddings
+### Step 1: Generate Embeddings
 
-In this initial step, we generated embeddings for each document in the dataset. 
+In this initial step, embeddings were generated for each document in the dataset using BERT, followed by dimensionality reduction through an autoencoder.
 
-1. **Dataset**: The dataset consists of a collection of blog posts by Paul Graham.
-2. **BERT Model**: We used the `bert-base-nli-mean-tokens` pre-trained model from the `sentence-transformers` library to generate the initial embeddings.
-3. **Autoencoder**: An autoencoder with the following structure was applied to compress the embeddings:
-   - Input Layer: 768 dimensions (BERT embedding size)
-   - Hidden Layer: 256 dimensions
-   - Bottleneck (Embedding) Layer: 128 dimensions
+1. **Dataset**: The dataset includes blog posts by Paul Graham, which feature recurring themes and nuanced language.
+2. **BERT Model**: We utilized the `bert-base-nli-mean-tokens` model from the `sentence-transformers` library to generate the initial document embeddings (768-dimensional vectors).
+3. **Semantic Autoencoder**: A multi-layer autoencoder was implemented with the following structure:
+   - **Input Layer**: 768 dimensions (matching the BERT output size)
+   - **Hidden Layers**: Gradual reduction through layers (e.g., 256 dimensions) with GELU activations and LayerNorm for stability
+   - **Bottleneck Layer**: 128 dimensions, representing the final refined embeddings for each document
 
-The autoencoder’s purpose is to create an embedding space more tailored to this dataset, enhancing retrieval quality by capturing specific features.
+The autoencoder’s architecture is tailored to capture distinctive patterns in the dataset while reducing dimensionality, making embeddings more suitable for semantic retrieval.
 
 #### Training Process
-The autoencoder was trained using Mean Squared Error (MSE) as the loss function, with 10 epochs and a learning rate of 0.001.
+The autoencoder was trained using a combined loss function: **Mean Squared Error (MSE)** to ensure reconstruction fidelity, and **Cosine Similarity** to preserve semantic relationships. The model was trained for 50 epochs with a learning rate of 0.0001, weight decay of 1e-5, and a batch size of 16. A cosine annealing scheduler and gradient clipping were applied to improve learning stability and prevent overfitting.
 
 ---
 
