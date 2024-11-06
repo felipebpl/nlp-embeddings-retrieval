@@ -43,7 +43,6 @@ def evaluate_clustering(embeddings, description):
     kmeans = KMeans(n_clusters=5, random_state=42)
     labels = kmeans.fit_predict(embeddings)
 
-    # Calcular as métricas de clustering
     silhouette = silhouette_score(embeddings, labels)
     calinski_harabasz = calinski_harabasz_score(embeddings, labels)
     davies_bouldin = davies_bouldin_score(embeddings, labels)
