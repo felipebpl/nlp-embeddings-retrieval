@@ -73,10 +73,10 @@ The following metrics were used to evaluate clustering quality:
 
 Results showed the following:
 
-| Embeddings         | Silhouette Score | Calinski-Harabasz Index | Davies-Bouldin Index |
+| Embeddings         | Silhouette Score | Calinski-Harabasz Index | Davies-Bouldin Index  |
 |--------------------|------------------|-------------------------|-----------------------|
-| Pre-trained BERT   | 0.0933          | 11.33                   | 3.29                  |
-| Trained Embeddings | 0.0877          | 10.13                   | 2.98                  |
+| Pre-trained BERT   | 0.3596           | 221.78                  | 0.86                  |
+| Trained Embeddings | 0.4675           | 909.89                  | 0.71                  |
 
 The autoencoder-adjusted embeddings slightly improved the Davies-Bouldin Index, indicating better-defined clusters.
 
